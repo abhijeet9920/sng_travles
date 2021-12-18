@@ -25,46 +25,6 @@ Route::namespace('Front')->group(function(){
     });
     Route::get('/outstation', 'HomeController@loadOutstation');
 });
-Route::get('/sample', function(){
-    $fields = array(
-        "message" => "Welcome to Sharayu's World. Please visit our website for daily/holiday cab services.",
-        "language" => "english",
-        "route" => "q",
-        "numbers" => "8850304560",
-    );
-
-    $curl = curl_init();
-
-    curl_setopt_array($curl, array(
-        CURLOPT_URL => "https://www.fast2sms.com/dev/bulkV2",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_SSL_VERIFYHOST => 0,
-        CURLOPT_SSL_VERIFYPEER => 0,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => json_encode($fields),
-        CURLOPT_HTTPHEADER => array(
-            "authorization: ".env('SMS_KEY'),
-            "accept: */*",
-            "cache-control: no-cache",
-            "content-type: application/json"
-        ),
-    ));
-
-    $response = curl_exec($curl);
-    $err = curl_error($curl);
-
-    curl_close($curl);
-
-    if ($err) {
-        return ["cURL Error #:" . $err];
-    } else {
-        return $response;
-    }
-});
 Auth::routes(['verify' => true]);
 Route::get('/verify', function(){
     return abort(403, 'Your email is not verified yet');
