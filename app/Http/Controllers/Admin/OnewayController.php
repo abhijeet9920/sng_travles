@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use App\Models\OnewayRoutes;
 use App\Models\OnewayEnquiries;
+use App\Models\Schedules;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class OnewayController extends Controller
 {
@@ -225,6 +227,7 @@ class OnewayController extends Controller
                 $nestedData['name'] = "$item->user_fname $item->user_lname";
                 $nestedData['contact_no'] = $item->user_mobile;
                 $nestedData['booking_time'] = Carbon::parse($item->ride_time)->format('D, dS M Y h:i a');
+                $nestedData['is_confirmed'] = boolval($item->is_confirmed);
                 $data[] = $nestedData;
             }
         }
@@ -236,5 +239,20 @@ class OnewayController extends Controller
             "data" => $data   
         );
         return response()->json($json_data);
+    }
+
+    public function confirmBooking(Request $request){
+        $id = base64_decode($request->get('oneway'));
+        try{
+            $booking = OnewayEnquiries::findOrfail($id);
+            $schedules = new Schedules();
+            $schedules->event_id = $id;
+            $schedules->type = 'oneway';
+            $schedules->save();
+            return response()->json(['status' => true, "message" => "booking is Confirmed"]);
+        }
+        catch(ModelNotFoundException $ex){
+            return response()->json(["status" => false, "message" => "Booking is not exists"]);
+        }
     }
 }

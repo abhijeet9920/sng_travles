@@ -231,7 +231,6 @@
             $("#hidden_pickuptime").val(formatedValue);
         });;
         $(".open_booking_form").on('click', function(){
-            alert("clicked");
             $("#book_ride_form").modal({
                 show:true
             });

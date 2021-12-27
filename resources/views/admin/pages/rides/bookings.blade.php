@@ -109,13 +109,45 @@
                 {"data":"contact_no","title":"Contact No."},
                 {"data":"booking_time","title":"Booking Time"},
                 {"title":"Actions", render:function(data, type, row){
+                    if(row.is_confirmed){
+                        return '<span style="background-color: #10d310;">Ride is Confirmed</span>';
+                    }
                     return '<button data-id="'+row.id+'" class="btn btn-primary is_confirm">Confirm Booking</button>';
                 }}
             ]	 
         });
         $("body").on('click', '.is_confirm', function(){
-            alert("Hello");
             $("#enq_id").val($(this).data('id'));
+            $("#modal-confirm").modal({
+                show:true
+            });
+        });
+
+        $("#confirm").on('click', function(){
+            $.ajax({
+                url: "{{ url('/admin/oneway/bookings/confirm')}}",
+                type:"POST",
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                data:{
+                    oneway:$("#enq_id").val()
+                },
+                beforeSend:function(){
+                    Pace.restart();
+                },
+                success:function(response){
+                    $("#response_p").html(response.message);
+                    $("#modal-confirm").modal('hide');
+                    $("#modal-status").modal({
+                        show:true
+                    });
+                    setTimeout(function(){
+                        $("#modal-status").modal('hide');
+                    }, 1500);
+                    $('#oneway_bookings').DataTable().ajax.reload();
+                }
+            });
         });
     });
 </script>

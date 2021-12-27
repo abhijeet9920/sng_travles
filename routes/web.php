@@ -55,6 +55,7 @@ Route::namespace('Admin')->group(function(){
                 Route::post('/distance', 'OnewayController@getDistance');
                 Route::get('/bookings', 'OnewayController@getBookingsPage');
                 Route::post('/bookings', 'OnewayController@getBookings');
+                Route::post('/bookings/confirm', 'OnewayController@confirmBooking');
                 Route::get('/{oneway}', 'OnewayController@editOneway');
             });
             Route::prefix('/events')->group(function(){
