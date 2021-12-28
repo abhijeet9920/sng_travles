@@ -244,42 +244,25 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="nav-item {{ (str_contains(url()->current(), 'admin/outstations')) ? 'menu-is-opening menu-open':'' }} ">
+                            <li class="nav-item {{ (str_contains(url()->current(), 'admin/events/oneway') || str_contains(url()->current(), 'admin/events/outstations')) ? 'menu-is-opening menu-open':'' }} ">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-car-alt"></i>
+                                    <i class="far fa-calendar-alt nav-icon"></i>
                                     <p>
-                                        Outstation
+                                        Our Schedules
                                         <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="{{ url('admin/outstations') }}" class="nav-link">
+                                        <a href="{{ url('admin/events/oneway') }}" class="nav-link {{ (url()->current() == url('admin/events/oneway')) ? 'active':'' }}">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Outstation Bookings</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item {{ (str_contains(url()->current(), 'admin/bookings')) ? 'menu-is-opening menu-open':'' }} ">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-car-alt"></i>
-                                    <p>
-                                        Our Booking
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="{{ url('admin/bookings') }}" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Lists</p>
+                                            <p>Oneway</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ url('admin/bookings/calender') }}" class="nav-link">
-                                            <i class="far fa-calendar-alt nav-icon"></i>
-                                            <p>Calenders</p>
+                                        <a href="{{ url('admin/events/outstations') }}" class="nav-link {{ (url()->current() == url('admin/events/outstations')) ? 'active':'' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Outstations</p>
                                         </a>
                                     </li>
                                 </ul>

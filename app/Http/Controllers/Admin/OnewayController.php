@@ -198,6 +198,7 @@ class OnewayController extends Controller
         {            
             $enquiries = OnewayEnquiries::with('route')->offset($start)
                          ->limit($limit)
+                         ->orderBy('ride_time', 'DESC')
                          ->get();
         }
         else {
@@ -206,6 +207,7 @@ class OnewayController extends Controller
                                 $query->where('start_location', 'LIKE', "%{$search}%")->orWhere('end_location', 'LIKE', "%{$search}%");
                             })->orWhere('user_mobile', 'LIKE',"%{$search}%")
                             ->orWhere('user_email', 'LIKE',"%{$search}%")
+                            ->orderBy('ride_time', 'DESC')
                             ->offset($start)
                             ->limit($limit)
                             ->get();

@@ -60,6 +60,7 @@ Route::namespace('Admin')->group(function(){
             });
             Route::prefix('/events')->group(function(){
                 Route::get('/oneway', 'EventsController@loadOnewayCal');
+                Route::post('/oneway', 'EventsController@loadEvents');
                 Route::get('/outstations', 'EventsController@loadOutstationCal');
             });
         });

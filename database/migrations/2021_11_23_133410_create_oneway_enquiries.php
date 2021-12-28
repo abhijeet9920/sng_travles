@@ -21,7 +21,6 @@ class CreateOnewayEnquiries extends Migration
             $table->string('user_email', 255);
             $table->string('user_mobile', 12);
             $table->dateTime('ride_time');
-            $table->tinyInteger('is_confirm', 0);
             $table->timestamps();
         });
     }

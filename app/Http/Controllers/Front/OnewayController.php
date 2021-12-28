@@ -128,7 +128,6 @@ class OnewayController extends Controller
         $enquiry->user_email = $request->user_email;
         $enquiry->user_mobile = $request->user_mobile;
         $enquiry->ride_time = $request->hidden_pickuptime;
-        $enquiry->is_confirm = 0;
         $enquiry->save();
         return response()->json(['status' => true, 'message' => '<p>Your booking is confirmed. We will send neccessary details in short</p>']);
     }
