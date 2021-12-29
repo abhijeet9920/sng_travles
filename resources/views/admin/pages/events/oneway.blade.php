@@ -74,27 +74,23 @@
             center: 'title',
             right : 'dayGridMonth,timeGridWeek,timeGridDay'
         },
-        themeSystem: 'bootstrap',
+        themeSystem: 'bootstrap'
         events: {
             url: "{{ url('/admin/events/oneway/') }}",
-            method:"POST",
-            extraParams:{
-                _token: "{{ csrf_token() }}",
-                type:'current'
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
             },
-            beforeSend:function(){
-                Pace.restart();
-            }
+            extraParams: {
+                _token:"{{ csrf_token() }}"
+            },
+            failure: function() {
+                alert('there was an error while fetching events!');
+            },
+            color: 'yellow',   // a non-ajax option
+            textColor: 'black' // a non-ajax option
         },
-        /*events: [
-            {
-                title          : 'All Day Event',
-                start          : new Date(y, m, 1),
-                backgroundColor: '#f56954', //red
-                borderColor    : '#f56954', //red
-                allDay         : true
-            }
-        ],*/
+        eventColor: '#378006',
         editable  : false,
         droppable : false, // this allows things to be dropped onto the calendar !!!
         drop      : function(info) {
